@@ -12,6 +12,8 @@ namespace SchoolLocker.Web.Pages.Bookings
     {
         private readonly IUnitOfWork _unitOfWork;
 
+        public int LockerNumber { get; set; }
+
         [BindProperty]
         public Booking Booking { get; set; }
 
@@ -22,8 +24,9 @@ namespace SchoolLocker.Web.Pages.Bookings
             _unitOfWork = unitOfWork;
         }
 
-        public void OnGet(int id)
+        public void OnGet(int lockerNumber)
         {
+            LockerNumber = lockerNumber;
             Pupils = _unitOfWork
                     .PupilRepository
                     .GetAll()
@@ -31,6 +34,7 @@ namespace SchoolLocker.Web.Pages.Bookings
                         $"{p.FirstName} {p.LastName}"
                         , p.Id.ToString()))
                         .ToList();
+
         }
     }
 }

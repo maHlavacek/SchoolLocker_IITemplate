@@ -51,6 +51,5 @@ namespace SchoolLocker.Persistence
                 ).ToArray();
             return bookings;
         }
-
     }
 }

@@ -44,7 +44,7 @@
                     }
                 </td>
                 <td>
-                    <a asp-page="/Bookings/Create">Create</a>
+                    <a asp-page="/Bookings/Create" asp-route-lockerNumber="@item.Locker.Number">Create</a>
                 </td>
             </tr>
         }
