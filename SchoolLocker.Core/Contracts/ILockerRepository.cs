@@ -8,7 +8,7 @@ namespace SchoolLocker.Core.Contracts
         SchoolLockerOverviewDto[] GetLockersOverview();
 
         int[] GetLockerNumbers();
-
+        Locker GetById(int id);
         Locker GetByLockerNr(int lockerNr);
 
     }

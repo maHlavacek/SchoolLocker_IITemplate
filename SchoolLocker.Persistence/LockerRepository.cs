@@ -13,13 +13,13 @@ namespace SchoolLocker.Persistence
         {
             _dbContext = dbContext;
         }
-        public int[] GetLockerNumbers()
+
+        public Locker GetById(int id)
         {
             return _dbContext
-                .Lockers
-                .Select(locker => locker.Number)
-                .OrderBy(nr => nr)
-                .ToArray();
+                   .Lockers
+                   .Where(l => l.Id == id)
+                   .SingleOrDefault();
         }
 
         public Locker GetByLockerNr(int lockerNr)
@@ -27,6 +27,15 @@ namespace SchoolLocker.Persistence
             return _dbContext
                 .Lockers
                 .SingleOrDefault(l => l.Number == lockerNr);
+        }
+
+        public int[] GetLockerNumbers()
+        {
+            return _dbContext
+                .Lockers
+                .Select(locker => locker.Number)
+                .OrderBy(nr => nr)
+                .ToArray();
         }
 
         public SchoolLockerOverviewDto[] GetLockersOverview()

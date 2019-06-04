@@ -14,10 +14,8 @@ namespace SchoolLocker.Web.Pages.Bookings
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public int LockerNumber { get; set; }
-
         [BindProperty]
-        public BookingDTO BookingDTO { get; set; }
+        public Booking Booking { get; set; }
 
         public List<SelectListItem> Pupils { get; set; }
 
@@ -26,9 +24,9 @@ namespace SchoolLocker.Web.Pages.Bookings
             _unitOfWork = unitOfWork;
         }
 
-        public void OnGet(int lockerNumber)
+        public void OnGet(int id)
         {
-            LockerNumber = lockerNumber;
+            var locker = _unitOfWork.LockerRepository.GetById(id);
             Pupils = _unitOfWork
                     .PupilRepository
                     .GetAll()
@@ -36,11 +34,11 @@ namespace SchoolLocker.Web.Pages.Bookings
                         $"{p.FirstName} {p.LastName}"
                         , p.Id.ToString()))
                         .ToList();
-            BookingDTO = new BookingDTO
+            Booking = new Booking
             {
-                LockerNumber = lockerNumber,
-                From = DateTime.Now.Date,
-                PupilId = 0
+                Locker = locker,
+                LockerId = locker.Id,
+                From = DateTime.Now.Date             
             };
 
         }
@@ -50,8 +48,15 @@ namespace SchoolLocker.Web.Pages.Bookings
             {
                 return Page();
             }
-          //  _unitOfWork.BookingRepository.Add(BookingDTO);
-           // _unitOfWork.SaveChanges();
+            Booking booking = new Booking
+            {
+                LockerId = Booking.LockerId,
+                PupilId = Booking.PupilId,
+                From = Booking.From,
+                To = Booking.To
+            };
+            _unitOfWork.BookingRepository.Add(booking);
+            _unitOfWork.SaveChanges();
             return RedirectToPage("/Index");
         }
     }

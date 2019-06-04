@@ -10,26 +10,25 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Booking.LockerId" type="hidden" />
             
             @* TODO: Formular zur Buchung eines Spinds erstellen *@
-            @*<div>
-                <input asp-for="@Model.Booking" class="form-control" type="hidden" />
-            </div>*@
+            
             <div class="form-group">
-                <label asp-for="@Model.BookingDTO.LockerNumber" class="control-label" ></label>
-                <input asp-for="@Model.BookingDTO.LockerNumber" class="form-control" readonly />
+                <label asp-for="Booking.Locker.Number" class="control-label" ></label>
+                <input asp-for="Booking.Locker.Number" class="form-control" readonly />
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Pupils"  class="control-label"></label>
-                <select asp-for="@Model.Pupils" class="form-control" asp-items="@Model.Pupils"></select>
+                <label asp-for="Booking.PupilId"  class="control-label"></label>
+                <select asp-for="Booking.PupilId" class="form-control" asp-items="@Model.Pupils"></select>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.BookingDTO.From" class="control-label"></label>
-                <input asp-for="@Model.BookingDTO.From" class="form-control" type="date"/>
+                <label asp-for="Booking.From" class="control-label"></label>
+                <input asp-for="Booking.From" class="form-control" type="date"/>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.BookingDTO.To" class="control-label"></label>
-                <input asp-for="@Model.BookingDTO.To" class="form-control" type="date" />
+                <label asp-for="Booking.To" class="control-label"></label>
+                <input asp-for="Booking.To" class="form-control" type="date" />
             </div>
             <button asp-page-handler="Create" type="submit" class="btn btn-default">Create</button>
         </form>
